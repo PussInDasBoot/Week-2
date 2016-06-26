@@ -4,7 +4,7 @@ require 'rspec'
 ### LOGIC (fix me)
 
 def hello(who)
-  "hello #{who}"
+  "hello #{who}!"
 end
 
 ### TEST CODE (don't touch me)

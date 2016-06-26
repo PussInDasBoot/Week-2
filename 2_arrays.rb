@@ -5,11 +5,21 @@ require 'rspec'
 
 # Returns the average of all the numbers in the array
 def average(numbers)
-  sum = 0
-  numbers.each do |n|
-    sum += n
+  # Why doesn't 
+  #   if numbers == [] || nil 
+  #   work? I had to split them...?
+  if numbers == []
+    nil
+  elsif numbers == nil
+    nil
+  else
+    numbers.map! {|n| n.to_f}
+    sum = 0
+    numbers.each do |n|
+      sum += n
+    end
+    sum / numbers.size
   end
-  sum / numbers.size
 end
 
 ### TEST CODE (don't touch me)
