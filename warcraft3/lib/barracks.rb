@@ -1,9 +1,10 @@
 class Barracks
-  attr_reader :gold, :food
+  attr_reader :gold, :food, :hp
 
   def initialize
     @gold = 1000
     @food = 80
+    @hp = 500
   end
 
   def can_train_footman?
@@ -36,6 +37,8 @@ class Barracks
     # if can_train_peasant? == false
     #   return nil
     end
-  
+  end
+  def damage(ap)
+    @hp -= ap
   end
 end

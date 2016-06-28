@@ -14,8 +14,12 @@ class Footman < Unit
   # end
 
 
-  # def attack!(enemy)
-  #   enemy.damage(self.attack_power)
-  # end
+  def attack!(enemy)
+    if enemy.is_a?(Barracks)
+      enemy.damage((attack_power / 2).ceil)
+    else
+      enemy.damage(attack_power)
+    end
+  end
 
 end
