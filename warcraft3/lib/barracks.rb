@@ -8,35 +8,33 @@ class Barracks
     @lumber = 500
   end
 
+  GOLD_COST_FOOTMAN = 135
+  FOOD_COST_FOOTMAN = 2
+  GOLD_COST_PEASANT = 90
+  FOOD_COST_PEASANT = 5
+
+
   def can_train_footman?
-    food >= 2 && gold >= 135
-    # if !(food < 2 || gold < 135)
-    #   return false
-    # end
-    # true
+    food >= FOOD_COST_FOOTMAN && gold >= GOLD_COST_FOOTMAN
   end
 
   def train_footman
     if can_train_footman?
-      @gold -= 135
-      @food -= 2
+      @gold -= GOLD_COST_FOOTMAN
+      @food -= FOOD_COST_FOOTMAN
       footman = Footman.new
     end
+  end
 
-    # if can_train_footman? == false
-    #   return nil
-    # end
-  end
   def can_train_peasant?
-    food >= 5 && gold >= 90
+    food >= FOOD_COST_PEASANT && gold >= GOLD_COST_PEASANT
   end
+
   def train_peasant
     if can_train_peasant?
-      @gold -= 90
-      @food -= 5
+      @gold -= GOLD_COST_PEASANT
+      @food -= FOOD_COST_PEASANT
       footman = Peasant.new
-    # if can_train_peasant? == false
-    #   return nil
     end
   end
 

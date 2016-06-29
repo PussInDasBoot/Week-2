@@ -15,25 +15,19 @@ describe SiegeEngine do
   end
 
   describe "#attack!" do
-      it "Does 100 (2xAP) damage against barracks" do
-        barrack = Barracks.new
-        expect(barrack).to receive(:damage).with(100)
-        @siege_engine.attack!(barrack)
-      end
-    end
-
-  describe "#attack!" do
-      it "if unit is siege engine, returns nil when trying to attack other unit that is not a siege engine" do
+      it "returns nil when trying to attack other unit that is not a siege engine" do
         other_unit = Unit.new(60,60)
         expect(@siege_engine.attack!(other_unit)).to eq nil
       end
+
+      it "will reduce other siege engine hp by ap when attacking a siege engine" do
+        other_siege_engine = SiegeEngine.new
+        @siege_engine.attack!(other_siege_engine)
+        expect(other_siege_engine.health_points).to eq(350)
+      end
     end
 
-end
 
-describe Unit do
-
-  
 end
 
 describe Barracks do
@@ -53,7 +47,14 @@ describe Barracks do
       expect(@barracks.gold).to eq(800)
       expect(@barracks.food).to eq(77)
     end
+  end
 
+  describe "#damage" do
+    it "Deducts hp by 100 (2 x AP) when attaked by siege engine" do
+      siege_engine = SiegeEngine.new
+      siege_engine.attack!(@barracks)
+      expect(@barracks.hp).to eq(400)
+    end
   end
 
 end

@@ -12,25 +12,16 @@ describe Barracks do
 
   describe "#damage" do
     it "should reduce the buildings's hp by the attack_power specified" do
-      @barrack.damage(5)
+      # TEST = Barracks::GOLD_COST_FOOTMAN
+      @barrack.damage(10)
+      expect(@barrack.hp).to eq(490)
+    end
+
+    it "should reduce the building's hp by half of the attack power specified if attacked by a footman" do
+      footman = Footman.new
+      footman.attack!(@barrack)
       expect(@barrack.hp).to eq(495)
     end
   end
-end
-
-describe Footman do
-
-  before :each do
-    @footman = Footman.new
-  end
-
-  describe "#attack!" do
-    it "should do deal 5 ((1/2 AP).ceil) damage to the building unit" do
-      building = Barracks.new
-      expect(building).to receive(:damage).with(5)
-      @footman.attack!(building)
-    end
-  end
 
 end
-

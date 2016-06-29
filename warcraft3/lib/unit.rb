@@ -13,10 +13,8 @@ class Unit
   end
 
   def attack!(enemy)
-    if cannot_attack?
-      nil
-    else
-    enemy.damage(attack_power)
+    if can_attack?(enemy)
+      enemy.damage(attack_power)
     end
   end
 
@@ -24,8 +22,10 @@ class Unit
     health_points == 0
   end
 
-  def cannot_attack?
-    (dead? && enemy.is_a?(Unit)) || (enemy.is_a?(Unit) && enemy.dead?) 
+  # You can only attack if you are alive and your enemy is alive
+  def can_attack?(enemy)
+    # !(dead? && enemy.is_a?(Unit)) || (enemy.is_a?(Unit) && enemy.dead?) 
+    !dead? && !enemy.dead?
   end
 
 end

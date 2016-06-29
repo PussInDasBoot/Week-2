@@ -9,8 +9,6 @@ class SiegeEngine < Unit
       enemy.damage(attack_power * 2)
     elsif enemy.is_a?(SiegeEngine)
       enemy.damage(attack_power)
-    else
-      nil
     end
   end
 end
