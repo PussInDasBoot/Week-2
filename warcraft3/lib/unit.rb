@@ -16,7 +16,18 @@ class Unit
   end
 
   def attack!(enemy)
+    if (dead? && enemy.is_a?(Unit)) || (enemy.is_a?(Unit) && enemy.dead?)
+      nil
+    else
     enemy.damage(attack_power)
+    end
+  end
+
+  def dead?
+    health_points == 0
+  end
+
+  def cannot_attack?
   end
 
 end
