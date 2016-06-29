@@ -1,10 +1,11 @@
 class Barracks
-  attr_reader :gold, :food, :hp
+  attr_reader :gold, :food, :hp, :lumber
 
   def initialize
     @gold = 1000
     @food = 80
     @hp = 500
+    @lumber = 500
   end
 
   def can_train_footman?
@@ -38,6 +39,14 @@ class Barracks
     #   return nil
     end
   end
+
+  def train_siege_engine
+    @lumber -= 60
+    @gold -=200
+    @food -= 3
+    seige_engine = SiegeEngine.new
+  end
+
   def damage(ap)
     @hp -= ap
   end
