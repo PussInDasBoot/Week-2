@@ -34,12 +34,3 @@ describe Customer do
     end
   end
 end
-
-# Failures:
-
-#   1) Customer should start with a name and a budget should have a budget
-#      Failure/Error: expect(@customer.budget).to eq(1000)
-
-#      NoMethodError:
-#        undefined method `budget' for #<Customer:0x897c680 @name="John", @budget=1000>
-#      # ./test.rb:15:in `block (3 levels) in <top (required)>'
