@@ -1,3 +1,5 @@
+require 'pry'
+
 class Robot
 
   attr_reader :position, :items
@@ -30,10 +32,17 @@ class Robot
   end
 
   def pick_up(item)
+    # Can only carry up to maximum weight of item
     return false unless items_weight + item.weight <= MAXIMUM_WEIGHT_OF_ITEM
+    # Automatically equips weapon if item is a weapon
     if item.is_a?(Weapon)
       self.equipped_weapon = item
     end
+    # If needs health and item is box of bolts, feeeeeeeed
+    if item.is_a?(BoxOfBolts) && health <= 80
+      item.feed(self)
+    end
+    # add the item to the items inventory and add its accumulated weight
     items << item
     self.items_weight += (item.weight)
   end
@@ -75,10 +84,30 @@ class Robot
     unless enemy.is_a?(Robot)
       raise NotARobotError
     end
-    if equipped_weapon
-      equipped_weapon.hit(enemy)
+    if can_attack?(enemy)
+      if equipped_weapon
+        equipped_weapon.hit(enemy)
+        if equipped_weapon.is_a?(Grenade)
+          self.equipped_weapon = nil
+        end
+      else
+      enemy.wound(5)
+      end
     end
-    enemy.wound(5)
+  end
+
+  def can_attack?(enemy)
+    # If an weapon is a Grenade, can attack if are two spaces away above or below
+    if equipped_weapon.is_a?(Grenade)
+      two_next_to = (position[0] + enemy.position[0]).abs == 2
+      two_above_or_below = (position[1] + enemy.position[1]).abs == 2
+      two_next_to || two_above_or_below
+    else
+    # If not a grenade, the left-right or up-down positions of you relative to your enemy are 1, then you can attack
+      next_to = (position[0] + enemy.position[0]).abs == 1
+      above_or_below = (position[1] + enemy.position[1]).abs == 1
+      next_to || above_or_below
+    end
   end
 
 end
